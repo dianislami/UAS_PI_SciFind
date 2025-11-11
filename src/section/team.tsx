@@ -20,6 +20,8 @@ interface TeamMember {
 const Team: React.FC = () => {
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = React.useState<boolean>(true);
+  const teamSectionRef = React.useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = React.useState(false);
   
   const teamMembers: TeamMember[] = [
     {
@@ -73,6 +75,33 @@ const Team: React.FC = () => {
     
     return () => clearInterval(timer);
   }, [isAutoPlaying, teamMembers.length]);
+
+  // Scroll animation observer
+  React.useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -10% 0px'
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      observerOptions
+    );
+
+    if (teamSectionRef.current) {
+      observer.observe(teamSectionRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
   
   // Reset auto-play timer when user manually changes
   const handleManualChange = (index: number): void => {
@@ -88,7 +117,15 @@ const Team: React.FC = () => {
   const currentMember: TeamMember = teamMembers[currentIndex];
 
   return (
-    <div className="min-h-screen relative">
+    <div 
+      ref={teamSectionRef}
+      className="min-h-screen relative"
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+        transition: 'opacity 0.8s ease-out, transform 0.8s ease-out'
+      }}
+    >
       {/* Divider */}
       <div className="w-full h-px bg-gradient-to-r from-[#331574]/30 via-[#4A9DE3]/80 to-[#331574]/30 m-0 mb-12"></div>
 
@@ -165,29 +202,24 @@ const Team: React.FC = () => {
             <div className="pt-2 px-8 pb-8 lg:p-8 lg:p-12 flex flex-col justify-center relative">
               <div 
                 key={`info-${currentMember.id}`}
+                className="w-full"
               >
-                <div className="mb-0 lg:mb-2 animate-[fadeInUp_0.6s_ease-out]" style={{ animationDelay: '0s' }}>
-                  <TextGenerateEffect
-                    words={currentMember.name}
-                    className="text-3xl lg:text-5xl font-bold text-white"
-                    duration={0.3}
-                    initialDelay={0}
-                  />
+                <div className="mb-0 lg:mb-2 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]" style={{ animationDelay: '0.2s' }}>
+                  <h2 className="text-3xl lg:text-5xl font-bold text-white">
+                    {currentMember.name}
+                  </h2>
                 </div>
-                <div className="mb-3 lg:mb-6 animate-[fadeInUp_0.6s_ease-out]" style={{ animationDelay: '0.15s' }}>
-                  <TextGenerateEffect
-                    words={currentMember.role}
-                    className="lg:text-2xl text-md text-[#4A9DE3] font-semibold"
-                    duration={0.3}
-                    initialDelay={0.3}
-                  />
+                <div className="mb-3 lg:mb-6 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]" style={{ animationDelay: '0.35s' }}>
+                  <p className="lg:text-2xl text-md text-[#4A9DE3] font-semibold">
+                    {currentMember.role}
+                  </p>
                 </div>
-                <p className="lg:text-lg text-sm text-slate-300 leading-relaxed mb-6 lg:mb-8 animate-[fadeInUp_0.6s_ease-out]" style={{ animationDelay: '0.3s' }}>
+                <p className="lg:text-lg text-sm text-slate-300 leading-relaxed mb-6 lg:mb-8 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]" style={{ animationDelay: '0.5s' }}>
                   {currentMember.bio}
                 </p>
 
                 {/* Skills */}
-                <div className="mb-4 lg:mb-8 animate-[fadeInUp_0.6s_ease-out]" style={{ animationDelay: '0.45s' }}>
+                <div className="mb-4 lg:mb-8 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]" style={{ animationDelay: '0.65s' }}>
                   <div className="flex flex-wrap gap-2 lg:gap-4">
                     {currentMember.skills.map((skill, index) => (
                       <span
@@ -201,7 +233,7 @@ const Team: React.FC = () => {
                 </div>
 
                 {/* Social Links */}
-                <div className="flex space-x-4 animate-[fadeInUp_0.6s_ease-out]" style={{ animationDelay: '0.6s' }}>
+                <div className="flex space-x-4 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]" style={{ animationDelay: '0.8s' }}>
                   {currentMember.social.github && (
                     <a
                       href={currentMember.social.github}
@@ -284,7 +316,7 @@ const Team: React.FC = () => {
         
         @keyframes fadeInUp {
           0% {
-            transform: translateY(20px);
+            transform: translateY(30px);
             opacity: 0;
           }
           100% {

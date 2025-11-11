@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       {/* Universal Navbar - Responsive for Desktop and Mobile */}
-      <nav className="fixed left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md rounded-full shadow-xl border border-[#4A9DE3]/20 top-2 sm:top-4 z-50 w-[90vw] max-w-3xl">
+      <nav className="fixed left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md rounded-full shadow-xl border border-[#4A9DE3]/20 px-[10px] py-[5px] lg:px-[30px] lg:py-[10px] top-2 sm:top-4 z-50 w-[80vw] lg:w-[70vw] max-w-xl">
         <div className="flex justify-between items-center px-3 sm:px-6 py-0">
 
           {/* Logo */}
@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
               <img 
                 src="/images/logo_SciFind.png" 
                 alt="SciFind logo" 
-                className={`h-4 sm:h-6 w-auto pr-2 sm:pr-4 transition-all duration-300 ${
+                className={`h-4 sm:h-6 w-auto ml-1 lg:ml-2 transition-all duration-300 ${
                   activeSection === 'hero'
                     ? 'drop-shadow-[0_0_15px_rgba(74,157,227,1)] brightness-150 scale-110' 
                     : 'hover:drop-shadow-[0_0_10px_rgba(74,157,227,0.5)] hover:brightness-110 hover:scale-105'
@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Navigation Links */}
-          <ul className="flex list-none gap-1 sm:gap-2">
+          <ul className="flex list-none gap-1 lg:gap-2">
             <li>
               <button
                 onClick={() => scrollToSection('search')}
