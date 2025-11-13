@@ -123,7 +123,7 @@ const Searching: React.FC = () => {
       {/* Divider */}
       <div className="w-full h-px bg-gradient-to-r from-[#331574]/30 via-[#4A9DE3]/80 to-[#331574] m-0"></div>
 
-      <div className="w-screen overflow-hidden" style={{ fontFamily: "'Nova Square', monospace" }}>
+      <div className="w-screen overflow-hidden" style={{ fontFamily: "'Michroma', monospace" }}>
         <ScrollVelocity
           texts={['Explore Sci-Fi Discover Reviews Find Articles Dive into Sci-Fi']}
           velocity={50}
@@ -165,7 +165,7 @@ const Searching: React.FC = () => {
       >
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: "'Michroma', monospace" }}>
             Cari Artikel & Review <br />Film Sci-Fi Disini
           </h1>
         </div>
@@ -175,7 +175,7 @@ const Searching: React.FC = () => {
           <div className="relative w-full max-w-4xl">
             <input
               type="text"
-              placeholder="Cari artikel atau review film Sci-Fi..."
+              placeholder="Ketik judul film Sci-Fi..."
               className="block w-full pl-12 pr-4 py-4 rounded-full text-sm lg:text-base bg-white/20 backdrop-blur-md border border-white/20 
                         rounded-2xl text-white placeholder-slate-400 focus:outline-none focus:border-[#4A9DE3] 
                         focus:ring-2 focus:ring-[#4A9DE3]/50 transition-all duration-300"

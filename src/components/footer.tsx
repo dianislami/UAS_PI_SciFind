@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
           <div className="text-sm text-center lg:text-right">
             <h3 className="text-[#4A9DE3] mb-3 text-lg font-semibold">Fitur</h3>
             <ul className="space-y-1">
-              <li><a href="#" className="text-slate-300 hover:text-[#4A9DE3] transition-colors duration-300">Pencarian Review Film</a></li>
+              <li><a href="#" className="text-slate-300 hover:text-[#4A9DE3] transition-colors duration-300">Pencarian Artikel & Review Film</a></li>
               <li><a href="#" className="text-slate-300 hover:text-[#4A9DE3] transition-colors duration-300">Algoritma VSM TF-IDF</a></li>
               <li><a href="#" className="text-slate-300 hover:text-[#4A9DE3] transition-colors duration-300">Algoritma Jaccard Similarity</a></li>
             </ul>
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Divider */}
-        <div className="w-full h-px bg-gradient-to-r from-[#331574]/30 via-[#4A9DE3]/80 to-[#331574]/30 m-0 mb-8"></div>
+        <div className="w-full h-px lg:h-[2px] bg-gradient-to-r from-[#331574]/30 via-[#4A9DE3]/80 to-[#331574]/30 m-0 mb-4"></div>
         <p className="text-sm text-slate-400 text-center">&copy; 2025 SciFind - Team 1. All rights reserved.</p>
       </div>
     </footer>

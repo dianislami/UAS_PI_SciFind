@@ -135,7 +135,7 @@ const HeroSection: React.FC = () => {
           <div className="text-center">
             <h1 
               className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl mb-6 leading-tight"
-              style={{ fontFamily: "'Nova Square', monospace" }}
+              style={{ fontFamily: "'Michroma', monospace" }}
             >
               <span className="text-white">
                 {typedText1}
