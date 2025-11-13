@@ -8,9 +8,9 @@ const HeroSection: React.FC = () => {
   const [showCursor2, setShowCursor2] = useState<boolean>(false);
   const [showCursor3, setShowCursor3] = useState<boolean>(false);
   
-  const text1: string = 'Temukan Film ';
+  const text1: string = 'Temukan Review Film ';
   const text2: string = 'Sci-Fi';
-  const text3: string = ' yang Tepat Untukmu';
+  const text3: string = ' Favoritmu Di Sini';
   
   useEffect(() => {
     const startTypingAnimation = () => {

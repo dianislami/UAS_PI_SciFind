@@ -1,7 +1,7 @@
 import React from 'react';
 import { Github, Linkedin, Mail } from 'lucide-react';
-import { Particles } from "@/components/ui/shadcn-io/particles";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { Particles } from "@/components/ui/particles";
+import { TextGenerateEffect } from "@/components/ui/text_generate_effect";
 
 interface TeamMember {
   id: number;
@@ -134,9 +134,9 @@ const Team: React.FC = () => {
         className="absolute inset-0 -z-30"
         quantity={100}
         ease={30}
-        staticity={50}
+        staticity={20}
         color="#4A9DE3"
-        size={1.5}
+        size={3}
       />
       
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-12" >
@@ -159,13 +159,13 @@ const Team: React.FC = () => {
           <div aria-hidden="true" className="absolute inset-x-0 -z-20 transform-gpu" style={{ bottom: '650px' }}>
             <div className="relative left-1/2 -translate-x-1/2 w-full h-250 flex items-end justify-center">
               {/* Inner glow - diagonal movement 45deg */}
-              <div className="absolute bottom-5 lg:bottom-50 w-25 h-35 lg:w-90 lg:h-70 rounded-full bg-[#4A9DE3] opacity-20 blur-2xl lg:blur-3xl animate-diagonal-drift"></div>
+              <div className="absolute bottom-5 lg:bottom-10 w-25 h-35 lg:w-90 lg:h-70 rounded-full bg-[#4A9DE3] opacity-20 blur-2xl lg:blur-3xl animate-diagonal-drift"></div>
               {/* Middle glow - circular orbit */}
-              <div className="absolute bottom-0 lg:bottom-35 w-[100px] h-30 lg:w-[1200px] lg:h-50 rounded-full bg-[#331574] opacity-30 blur-2xl lg:blur-3xl animate-orbit"></div>
+              <div className="absolute bottom-0 w-[100px] h-30 lg:w-[1200px] lg:h-50 rounded-full bg-[#331574] opacity-30 blur-2xl lg:blur-3xl animate-orbit"></div>
               {/* Outer glow - rotate and scale combined */}
-              <div className="absolute bottom-0 lg:bottom-35 w-[500px] h-30 lg:w-[1000px] lg:h-30 rounded-full bg-gradient-to-r from-[#4A9DE3] to-[#331574] opacity-25 blur-3xl animate-rotate-scale"></div>
+              <div className="absolute bottom-0 w-[500px] h-30 lg:w-[1000px] lg:h-30 rounded-full bg-gradient-to-r from-[#4A9DE3] to-[#331574] opacity-25 blur-3xl animate-rotate-scale"></div>
               {/* Outer glow right - rotate opposite direction */}
-              <div className="absolute bottom-0 lg:bottom-35 w-[500px] h-30 lg:w-[1000px] lg:h-50 rounded-full bg-gradient-to-r from-[#7751c9] to-[#331574] opacity-25 blur-2xl lg:blur-3xl animate-rotate-scale-right"></div>
+              <div className="absolute bottom-0 w-[500px] h-30 lg:w-[1000px] lg:h-50 rounded-full bg-gradient-to-r from-[#7751c9] to-[#331574] opacity-25 blur-2xl lg:blur-3xl animate-rotate-scale-right"></div>
             </div>
           </div>
         </div>

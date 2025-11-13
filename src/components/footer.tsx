@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Divider */}
-        <div className="w-full h-px lg:h-[2px] bg-gradient-to-r from-[#331574]/30 via-[#4A9DE3]/80 to-[#331574]/30 m-0 mb-4"></div>
+        <div className="w-full h-px bg-gradient-to-r from-[#331574]/30 via-[#4A9DE3]/80 to-[#331574]/30 m-0 mb-4"></div>
         <p className="text-sm text-slate-400 text-center">&copy; 2025 SciFind - Team 1. All rights reserved.</p>
       </div>
     </footer>
