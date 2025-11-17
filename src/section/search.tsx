@@ -81,6 +81,10 @@ const Searching: React.FC = () => {
 
   const [marqueeVisible, setMarqueeVisible] = useState(false);
   const [searchVisible, setSearchVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchMethod, setSearchMethod] = useState<'tfidf' | 'jaccard' | 'hybrid'>('hybrid');
 
   useEffect(() => {
     const observerOptions = {
@@ -119,6 +123,39 @@ const Searching: React.FC = () => {
     };
   }, []);
 
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) return;
+    
+    setIsLoading(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: searchQuery,
+          method: searchMethod,
+          top_k: 10
+        })
+      });
+      
+      const data = await response.json();
+      setSearchResults(data.results || []);
+    } catch (error) {
+      console.error('Search error:', error);
+      alert('Error connecting to search server. Please make sure the backend is running.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <div className="relative">
       {/* Divider */}
@@ -156,7 +193,7 @@ const Searching: React.FC = () => {
 
       <div 
         ref={searchSectionRef}
-        className="min-h-100 lg:min-h-150 mx-auto px-6 lg:px-8 relative -mt-[280px] md:-mt-[400px] lg:-mt-[420px] z-10"
+        className="min-h-100 lg:min-h-120 mx-auto px-6 lg:px-8 relative -mt-[280px] md:-mt-[400px] lg:-mt-[420px] z-10"
         style={{
           opacity: searchVisible ? 1 : 0,
           transform: searchVisible ? 'translateY(0)' : 'translateY(30px)',
@@ -172,32 +209,73 @@ const Searching: React.FC = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="mt-10 flex justify-center">
-          <div className="relative w-full max-w-4xl">
+        <div className="mt-10 flex flex-col items-center gap-4">
+          <div className="relative w-full max-w-4xl mb-7">
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={handleKeyPress}
               placeholder="Ketik judul film Sci-Fi..."
+              disabled={isLoading}
               className="block w-full pl-12 pr-4 py-4 rounded-full text-sm lg:text-base bg-white/20 backdrop-blur-md border border-white/20 
                         rounded-2xl text-white placeholder-slate-400 focus:outline-none focus:border-[#4A9DE3] 
-                        focus:ring-2 focus:ring-[#4A9DE3]/50 transition-all duration-300"
+                        focus:ring-2 focus:ring-[#4A9DE3]/50 transition-all duration-300 disabled:opacity-50"
             />
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <Search className="h-6 w-6 text-slate-400" />
             </div>
             <button
+              onClick={handleSearch}
+              disabled={isLoading}
               className="absolute inset-y-2 right-0 mr-2 px-5 lg:px-6 bg-gradient-to-r from-[#124F88] to-[#4A9DE3]
                               text-white rounded-full font-small lg:font-medium
                               transition-all duration-300 ease-in-out hover:cursor-pointer
                               hover:brightness-105 hover:saturate-125
-                              hover:[box-shadow:inset_0_3px_6px_rgba(0,0,0,0.60)]"
+                              hover:[box-shadow:inset_0_3px_6px_rgba(0,0,0,0.60)]
+                              disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Cari
+              {isLoading ? 'Mencari...' : 'Cari'}
+            </button>
+          </div>
+
+          {/* Search Method Selector */}
+          <div className="flex gap-2 bg-white/10 backdrop-blur-md p-1 rounded-full border border-white/20">
+            <button
+              onClick={() => setSearchMethod('hybrid')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                searchMethod === 'hybrid'
+                  ? 'bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] text-white'
+                  : 'text-white/70 hover:text-white'
+              }`}
+            >
+              Hybrid
+            </button>
+            <button
+              onClick={() => setSearchMethod('tfidf')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                searchMethod === 'tfidf'
+                  ? 'bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] text-white'
+                  : 'text-white/70 hover:text-white'
+              }`}
+            >
+              TF-IDF
+            </button>
+            <button
+              onClick={() => setSearchMethod('jaccard')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                searchMethod === 'jaccard'
+                  ? 'bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] text-white'
+                  : 'text-white/70 hover:text-white'
+              }`}
+            >
+              Jaccard
             </button>
           </div>
         </div>
       </div>
 
-      <ResultSection />
+      <ResultSection results={searchResults} isLoading={isLoading} searchMethod={searchMethod} />
     </div>  
   );
 };
