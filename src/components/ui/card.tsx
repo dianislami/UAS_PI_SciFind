@@ -91,7 +91,7 @@ const GlareHover: React.FC<GlareHoverProps> = ({
       style={{
         width: `min(${width}, 85vw)`,
         height: `min(${height}, 56.67vw)`,
-        maxWidth: '750px',
+        maxWidth: '720px',
         maxHeight: '500px',
         aspectRatio: '3/2',
         background,
