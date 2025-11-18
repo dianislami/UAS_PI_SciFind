@@ -130,8 +130,9 @@ const Searching: React.FC = () => {
     try {
       // Development: proxy to localhost:5000
       // Production: use environment variable for backend URL
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
       const API_URL = import.meta.env.PROD 
-        ? `${import.meta.env.VITE_BACKEND_URL}/api/search`
+        ? `${backendUrl}/api/search`
         : '/api/search';
       
       const response = await fetch(API_URL, {
