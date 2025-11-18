@@ -147,7 +147,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                                     fontFamily: "'Michroma', monospace",
                                     textShadow: '2px 2px 8px rgba(0,0,0,0.8)'
                                     }}>
-                                    {item.judul}
+                                    {item.title || item.judul}
                                 </h3>
                                 <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl" style={{
                                     color: '#ffffff',
@@ -160,7 +160,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                                     WebkitLineClamp: 4,
                                     WebkitBoxOrient: 'vertical'
                                     }}>
-                                    {parseMarkdownText(item.isi || item.content || '')}
+                                    {parseMarkdownText(item.description || item.isi || item.content || '')}
                                 </p>
 
                                 <button className="mt-4 sm:mt-6 md:mt-8 px-6 sm:px-8 md:px-10 py-2 bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] border border-white/50 text-white rounded-lg font-medium w-fit hover:cursor-pointer hover:bg-[#4A9DE3] hover:scale-110 transition-all duration-300 text-xs sm:text-sm md:text-base">
@@ -177,7 +177,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                             >
                                 <img 
                                 src={item.poster} 
-                                alt={item.judul}
+                                alt={item.title || item.judul}
                                 style={{
                                 width: '100%',
                                 height: '100%',
