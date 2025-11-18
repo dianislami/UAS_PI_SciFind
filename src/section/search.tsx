@@ -128,8 +128,11 @@ const Searching: React.FC = () => {
     
     setIsLoading(true);
     try {
-      // Use proxy in development, environment variable in production
-      const API_URL = '/api/search';
+      // Development: proxy to localhost:5000
+      // Production: use environment variable for backend URL
+      const API_URL = import.meta.env.PROD 
+        ? `${import.meta.env.VITE_BACKEND_URL}/api/search`
+        : '/api/search';
       
       const response = await fetch(API_URL, {
         method: 'POST',
