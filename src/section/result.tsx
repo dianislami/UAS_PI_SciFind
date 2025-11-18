@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import GlareHover from '@/components/ui/card';
+import Modal from '@/components/ui/modal';
 
 interface ResultSectionProps {
   results?: any[];
@@ -40,6 +41,18 @@ const parseMarkdownText = (text: string) => {
 const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading = false, searchMethod = 'hybrid', hasSearched = false }) => {
     const defaultMessageRef = useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = useState(false);
+    const [selectedMovie, setSelectedMovie] = useState<any>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = (movie: any) => {
+        setSelectedMovie(movie);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedMovie(null);
+    };
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -165,19 +178,19 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                                     {searchMethod === 'hybrid' && (
                                         <>
                                             {item.tfidf_score !== undefined && (
-                                                <div className="bg-black/50 backdrop-blur-md px-3 py-1 lg:px-5 lg:py-2 rounded-lg border border-[#4A9DE3]/50">
+                                                <div className="bg-black/50 backdrop-blur-md px-3 py-0 lg:px-5 lg:py-2 rounded-lg border border-[#4A9DE3]/50">
                                                     <span className="text-[#4A9DE3] text-xs lg:text-base font-semibold">TF-IDF: </span>
                                                     <span className="text-white text-xs lg:text-base font-bold">{(item.tfidf_score * 100).toFixed(1)}%</span>
                                                 </div>
                                             )}
                                             {item.jaccard_score !== undefined && (
-                                                <div className="bg-black/50 backdrop-blur-md px-3 py-1 lg:px-5 lg:py-2 rounded-lg border border-[#8f5bff]/50">
+                                                <div className="bg-black/50 backdrop-blur-md px-3 py-0 lg:px-5 lg:py-2 rounded-lg border border-[#8f5bff]/50">
                                                     <span className="text-[#8f5bff] text-xs lg:text-base font-semibold">Jaccard: </span>
                                                     <span className="text-white text-xs lg:text-base font-bold">{(item.jaccard_score * 100).toFixed(1)}%</span>
                                                 </div>
                                             )}
                                             {item.score !== undefined && (
-                                                <div className="bg-gradient-to-r from-[#8f5bff]/40 to-[#4A9DE3]/40 backdrop-blur-md px-3 py-1 lg:px-5 lg:py-2 rounded-lg border border-white/50">
+                                                <div className="bg-gradient-to-r from-[#8f5bff]/40 to-[#4A9DE3]/40 backdrop-blur-md px-3 py-0 lg:px-5 lg:py-2 rounded-lg border border-white/50">
                                                     <span className="text-white text-xs lg:text-base font-semibold">Hybrid: </span>
                                                     <span className="text-white text-xs lg:text-base font-bold">{(item.score * 100).toFixed(1)}%</span>
                                                 </div>
@@ -226,7 +239,10 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                                     {parseMarkdownText(item.description || item.isi || item.content || '')}
                                 </p>
 
-                                <button className="mt-4 sm:mt-6 md:mt-8 px-6 sm:px-8 md:px-10 py-2 bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] border border-white/50 text-white rounded-lg font-medium w-fit hover:cursor-pointer hover:bg-[#4A9DE3] hover:scale-110 transition-all duration-300 text-xs sm:text-sm md:text-base">
+                                <button 
+                                    onClick={() => openModal(item)}
+                                    className="mt-4 sm:mt-6 md:mt-8 px-6 sm:px-8 md:px-10 py-2 bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] border border-white/50 text-white rounded-lg font-medium w-fit hover:cursor-pointer hover:bg-[#4A9DE3] hover:scale-110 transition-all duration-300 text-xs sm:text-sm md:text-base"
+                                >
                                     Selengkapnya
                                 </button>
                             </div>
@@ -256,6 +272,71 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                     </div>
                 ))}
             </div>
+
+            {/* Modal for movie details */}
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
+                {selectedMovie && (
+                    <div className="p-6 lg:p-12">
+                        {/* Header with Grid: Poster left, Title right */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-8">
+                            {/* Poster */}
+                            <div className="flex justify-center md:justify-start">
+                                <img 
+                                    src={selectedMovie.poster} 
+                                    alt={selectedMovie.title || selectedMovie.judul}
+                                    className="rounded-lg shadow-2xl w-full max-w-sm object-cover border border-[#4A9DE3]/50"
+                                    style={{ maxHeight: '500px' }}
+                                />
+                            </div>
+
+                            {/* Title and Scores */}
+                            <div className="flex flex-col justify-center">
+                                <h2 
+                                    className="text-3xl lg:text-5xl font-bold text-white mb-4 lg:mb-8"
+                                    style={{ fontFamily: "'Michroma', monospace" }}
+                                >
+                                    {selectedMovie.title || selectedMovie.judul}
+                                </h2>
+
+                                {/* Score Badges */}
+                                <div className="flex flex-wrap gap-3 mb-0">
+                                    {selectedMovie.tfidf_score !== undefined && (
+                                        <div className="bg-black/50 backdrop-blur-md px-3 py-1 lg:px-5 lg:py-3 rounded-lg border border-[#4A9DE3]/50">
+                                            <span className="text-[#4A9DE3] text-xs lg:text-base font-semibold">TF-IDF: </span>
+                                            <span className="text-white text-xs lg:text-base font-bold">{(selectedMovie.tfidf_score * 100).toFixed(1)}%</span>
+                                        </div>
+                                    )}
+                                    {selectedMovie.jaccard_score !== undefined && (
+                                        <div className="bg-black/50 backdrop-blur-md px-3 py-1 lg:px-5 lg:py-3 rounded-lg border border-[#8f5bff]/50">
+                                            <span className="text-[#8f5bff] text-xs lg:text-base font-semibold">Jaccard: </span>
+                                            <span className="text-white text-xs lg:text-base font-bold">{(selectedMovie.jaccard_score * 100).toFixed(1)}%</span>
+                                        </div>
+                                    )}
+                                    {selectedMovie.score !== undefined && (
+                                        <div className="bg-gradient-to-r from-[#8f5bff]/40 to-[#4A9DE3]/40 backdrop-blur-md px-3 py-1 lg:px-5 lg:py-3 rounded-lg border border-white/50">
+                                            <span className="text-white text-xs lg:text-base font-semibold">Hybrid: </span>
+                                            <span className="text-white text-xs lg:text-base font-bold">{(selectedMovie.score * 100).toFixed(1)}%</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Full Description */}
+                        <div className="border-t border-[#4A9DE3]/50 pt-6">
+                            <h3 
+                                className="text-xl lg:text-2xl font-bold text-white mb-4"
+                                style={{ fontFamily: "'Michroma', monospace" }}
+                            >
+                                Deskripsi
+                            </h3>
+                            <div className="text-white/90 text-base lg:text-lg text-justify leading-relaxed">
+                                {parseMarkdownText(selectedMovie.description || selectedMovie.isi || selectedMovie.content || '')}
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </Modal>
         </div>
     );
 };
