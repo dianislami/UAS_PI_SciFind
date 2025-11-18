@@ -132,7 +132,7 @@ const Searching: React.FC = () => {
       // Production: use environment variable for backend URL
       const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
       const API_URL = import.meta.env.PROD 
-        ? `${backendUrl}/api/search`
+        ? `${backendUrl.replace(/\/$/, '')}/api/search`
         : '/api/search';
       
       const response = await fetch(API_URL, {
