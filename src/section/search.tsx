@@ -85,6 +85,7 @@ const Searching: React.FC = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchMethod, setSearchMethod] = useState<'tfidf' | 'jaccard' | 'hybrid'>('hybrid');
+  const [hasSearched, setHasSearched] = useState(false);
 
   useEffect(() => {
     const observerOptions = {
@@ -127,6 +128,7 @@ const Searching: React.FC = () => {
     if (!searchQuery.trim()) return;
     
     setIsLoading(true);
+    setHasSearched(true);
     try {
       // Development: proxy to localhost:5000
       // Production: use environment variable for backend URL
@@ -282,7 +284,7 @@ const Searching: React.FC = () => {
         </div>
       </div>
 
-      <ResultSection results={searchResults} isLoading={isLoading} searchMethod={searchMethod} />
+      <ResultSection results={searchResults} isLoading={isLoading} searchMethod={searchMethod} hasSearched={hasSearched} />
     </div>  
   );
 };

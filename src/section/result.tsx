@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import GlareHover from '@/components/ui/card';
-import filmData from '@/data.json';
 
 interface ResultSectionProps {
   results?: any[];
   isLoading?: boolean;
   searchMethod?: 'tfidf' | 'jaccard' | 'hybrid';
+  hasSearched?: boolean;
 }
 
 // Function to parse markdown-like text and convert to JSX
@@ -37,9 +37,36 @@ const parseMarkdownText = (text: string) => {
   });
 };
 
-const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading = false, searchMethod = 'hybrid' }) => {
-    // Use search results if available, otherwise use default filmData
-    let displayData = results.length > 0 ? results : filmData;
+const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading = false, searchMethod = 'hybrid', hasSearched = false }) => {
+    const defaultMessageRef = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setIsVisible(true);
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '0px 0px -10% 0px'
+            }
+        );
+
+        if (defaultMessageRef.current) {
+            observer.observe(defaultMessageRef.current);
+        }
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
+    // Use search results if available, otherwise show nothing
+    let displayData = results;
     
     // Sort by score based on selected method (highest first)
     if (results.length > 0) {
@@ -67,15 +94,51 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
     if (isLoading) {
         return (
             <div className="flex justify-center items-center my-20">
-                <div className="text-white text-xl font-michroma">Mencari...</div>
+                <div 
+                    className="text-white/50 text-xl font-michroma"
+                    style={{
+                        animation: 'pulse 1.5s ease-in-out infinite',
+                    }}
+                >
+                    Mencari...
+                </div>
             </div>
         );
     }
 
+    // Show default message if no search has been performed
+    if (!hasSearched) {
+        return (
+            <div 
+                ref={defaultMessageRef}
+                className="flex justify-center items-center my-20"
+            >
+                <div 
+                    className="text-white/50 text-xl font-michroma"
+                    style={{
+                        opacity: isVisible ? 1 : 0,
+                        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+                        transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+                    }}
+                >
+                    Hasil akan muncul disini
+                </div>
+            </div>
+        );
+    }
+
+    // Show no results message if search returned empty
     if (displayData.length === 0) {
         return (
             <div className="flex justify-center items-center my-20">
-                <div className="text-white text-xl font-michroma">Tidak ada hasil ditemukan</div>
+                <div 
+                    className="text-white/50 text-xl font-michroma"
+                    style={{
+                        animation: 'fadeInUp 0.8s ease-out',
+                    }}
+                >
+                    Tidak ada hasil ditemukan
+                </div>
             </div>
         );
     }
