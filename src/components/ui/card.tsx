@@ -1,8 +1,6 @@
 import React, { useRef } from 'react';
 
 interface GlareHoverProps {
-  width?: string;
-  height?: string;
   background?: string;
   borderRadius?: string;
   borderColor?: string;
@@ -18,8 +16,6 @@ interface GlareHoverProps {
 }
 
 const GlareHover: React.FC<GlareHoverProps> = ({
-  width = '85vw',
-  height = '56.67vw',
   background = '#000',
   borderRadius = '15px',
   borderColor = '#4A9DE3',
@@ -89,10 +85,7 @@ const GlareHover: React.FC<GlareHoverProps> = ({
     <div
       className={`relative grid place-items-center overflow-hidden border cursor-pointer ${className} z-70`}
       style={{
-        width: `min(${width}, 85vw)`,
-        height: `min(${height}, 56.67vw)`,
-        maxWidth: '720px',
-        maxHeight: '500px',
+        width: '100%',
         aspectRatio: '3/2',
         background,
         borderRadius,

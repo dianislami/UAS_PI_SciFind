@@ -215,7 +215,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                             )}
 
                             {/* Text overlay */}
-                            <div className="absolute inset-0 flex flex-col justify-center m-4 sm:m-6 md:m-8 lg:mx-12 lg:my-20 text-left z-100">
+                            <div className="absolute inset-0 flex flex-col justify-center m-4 sm:m-6 md:m-8 lg:mx-12 lg:mt-18 text-left z-100">
                                 <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl" style={{
                                     fontWeight: '900',
                                     color: '#ffffff',
@@ -241,7 +241,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
 
                                 <button 
                                     onClick={() => openModal(item)}
-                                    className="mt-4 sm:mt-6 md:mt-8 px-6 sm:px-8 md:px-10 py-2 bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] border border-white/50 text-white rounded-lg font-medium w-fit hover:cursor-pointer hover:bg-[#4A9DE3] hover:scale-110 transition-all duration-300 text-xs sm:text-sm md:text-base"
+                                    className="mt-4 sm:mt-6 md:mt-6 px-6 sm:px-8 md:px-10 py-2 bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] border border-white/50 text-white rounded-lg font-medium w-fit hover:cursor-pointer hover:bg-[#4A9DE3] hover:scale-110 transition-all duration-300 text-xs sm:text-sm md:text-base"
                                 >
                                     Selengkapnya
                                 </button>

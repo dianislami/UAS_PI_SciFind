@@ -11,15 +11,29 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
+    const navbar = document.querySelector('nav');
+    
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      if (navbar) {
+        navbar.style.opacity = '0';
+        navbar.style.pointerEvents = 'none';
+      }
       setIsClosing(false);
     } else {
       document.body.style.overflow = 'unset';
+      if (navbar) {
+        navbar.style.opacity = '1';
+        navbar.style.pointerEvents = 'auto';
+      }
     }
 
     return () => {
       document.body.style.overflow = 'unset';
+      if (navbar) {
+        navbar.style.opacity = '1';
+        navbar.style.pointerEvents = 'auto';
+      }
     };
   }, [isOpen]);
 
