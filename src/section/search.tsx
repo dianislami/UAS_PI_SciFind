@@ -291,7 +291,7 @@ const Searching: React.FC = () => {
 
           {/* Correction Message */}
           {correctionMessage && (
-            <div className="text-center text-white/70 text-sm italic bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+            <div className="text-center text-white/70 text-sm italic bg-white/10 backdrop-blur-md px-4 py-2 mb-6 lg:mb-0 rounded-full border border-white/20">
               {correctionMessage}
             </div>
           )}
