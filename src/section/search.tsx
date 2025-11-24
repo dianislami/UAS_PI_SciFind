@@ -86,6 +86,7 @@ const Searching: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchMethod, setSearchMethod] = useState<'tfidf' | 'jaccard' | 'hybrid'>('hybrid');
   const [hasSearched, setHasSearched] = useState(false);
+  const [correctionMessage, setCorrectionMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const observerOptions = {
@@ -129,6 +130,7 @@ const Searching: React.FC = () => {
     
     setIsLoading(true);
     setHasSearched(true);
+    setCorrectionMessage(null);
     try {
       // Development: proxy to localhost:5000
       // Production: use environment variable for backend URL
@@ -151,6 +153,11 @@ const Searching: React.FC = () => {
       
       const data = await response.json();
       setSearchResults(data.results || []);
+      
+      // Show correction message if query was auto-corrected
+      if (data.corrected_query && data.corrected_query !== data.query) {
+        setCorrectionMessage(`Mencari: "${data.corrected_query}" (dari "${data.query}")`);
+      }
     } catch (error) {
       console.error('Search error:', error);
       alert('Error connecting to search server. Please make sure the backend is running.');
@@ -281,6 +288,13 @@ const Searching: React.FC = () => {
               Jaccard
             </button>
           </div>
+
+          {/* Correction Message */}
+          {correctionMessage && (
+            <div className="text-center text-white/70 text-sm italic bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+              {correctionMessage}
+            </div>
+          )}
         </div>
       </div>
 

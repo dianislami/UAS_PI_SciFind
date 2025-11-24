@@ -165,15 +165,6 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                             {/* Score Badge - Top Right */}
                             {(item.tfidf_score !== undefined || item.jaccard_score !== undefined || item.score !== undefined) && (
                                 <div className="absolute top-2 right-2 lg:top-6 lg:right-6 z-[110] flex gap-2">
-                                    {/* Method Badge - always show if available */}
-                                    {/* {item.method && (
-                                        <div className="bg-gradient-to-r from-[#8f5bff]/90 to-[#4A9DE3]/90 backdrop-blur-md text-center px-3 py-1 lg:px-5 lg:py-2 rounded-full border border-white/30">
-                                            <span className="text-white text-xs lg:text-base font-semibold" style={{ fontFamily: "'Michroma', monospace" }}>
-                                                {item.method}
-                                            </span>
-                                        </div>
-                                    )}
-                                    */}
                                     {/* Show scores based on selected method */}
                                     {searchMethod === 'hybrid' && (
                                         <>
@@ -215,8 +206,8 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                             )}
 
                             {/* Text overlay */}
-                            <div className="absolute inset-0 flex flex-col justify-center m-4 sm:m-6 md:m-8 lg:mx-12 lg:mt-18 text-left z-100">
-                                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl" style={{
+                            <div className="absolute inset-0 flex flex-col justify-center mt-7 mx-6 md:m-8 lg:mx-12 lg:mt-18 text-left z-100">
+                                <h3 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl" style={{
                                     fontWeight: '900',
                                     color: '#ffffff',
                                     margin: '0 0px 12px 0',
@@ -241,7 +232,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
 
                                 <button 
                                     onClick={() => openModal(item)}
-                                    className="mt-4 sm:mt-6 md:mt-6 px-6 sm:px-8 md:px-10 py-2 bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] border border-white/50 text-white rounded-lg font-medium w-fit hover:cursor-pointer hover:bg-[#4A9DE3] hover:scale-110 transition-all duration-300 text-xs sm:text-sm md:text-base"
+                                    className="mt-2 md:mt-6 px-6 sm:px-8 md:px-10 py-1 bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] border border-white/50 text-white rounded-lg font-medium w-fit hover:cursor-pointer hover:bg-[#4A9DE3] hover:scale-110 transition-all duration-300 text-xs sm:text-sm md:text-base"
                                 >
                                     Selengkapnya
                                 </button>
@@ -254,15 +245,30 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                                 transitionDuration={800}
                                 playOnce={false}
                             >
-                                <img 
-                                src={item.poster} 
-                                alt={item.title || item.judul}
-                                style={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: 'cover',
-                                }}
-                            />
+                                {item.poster ? (
+                                    <img 
+                                        src={item.poster} 
+                                        alt={item.title || item.judul}
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover',
+                                        }}
+                                    />
+                                ) : (
+                                    <div 
+                                        className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] to-[#0a0a14]"
+                                        style={{
+                                            width: '100%',
+                                            aspectRatio: '3/2',
+                                        }}
+                                    >
+                                        <div className="text-center p-8">
+                                            <div className="text-6xl mb-4">🎬</div>
+                                            <p className="text-white/50 text-lg font-michroma">No Image</p>
+                                        </div>
+                                    </div>
+                                )}
 
                             {/* Dark overlay for better text readability */}
                             <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a14]/90 to-transparent hover:cursor-pointer"></div>
@@ -281,12 +287,24 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-8">
                             {/* Poster */}
                             <div className="flex justify-center md:justify-start">
-                                <img 
-                                    src={selectedMovie.poster} 
-                                    alt={selectedMovie.title || selectedMovie.judul}
-                                    className="rounded-lg shadow-2xl w-full max-w-sm object-cover border border-[#4A9DE3]/50"
-                                    style={{ maxHeight: '500px' }}
-                                />
+                                {selectedMovie.poster ? (
+                                    <img 
+                                        src={selectedMovie.poster} 
+                                        alt={selectedMovie.title || selectedMovie.judul}
+                                        className="rounded-lg shadow-2xl w-full max-w-sm object-cover border border-[#4A9DE3]/50"
+                                        style={{ maxHeight: '500px' }}
+                                    />
+                                ) : (
+                                    <div 
+                                        className="rounded-lg shadow-2xl w-full max-w-sm border border-[#4A9DE3]/50 flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] to-[#0a0a14]"
+                                        style={{ height: '500px' }}
+                                    >
+                                        <div className="text-center p-8">
+                                            <div className="text-8xl mb-4">🎬</div>
+                                            <p className="text-white/50 text-xl font-michroma">No Image Available</p>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             {/* Title and Scores */}
