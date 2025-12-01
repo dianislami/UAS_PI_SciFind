@@ -28,7 +28,7 @@ const Team: React.FC = () => {
         id: 1,
         name: 'Tinsari Rauhana',
         role: 'Data Analyst & Research Engineer',
-        bio: 'Bertanggung jawab dalam pengumpulan, pengolahan, dan analisis data ulasan film Sci-Fi agar sistem dapat menampilkan hasil penelusuran yang akurat dan relevan. Memiliki keahlian dalam pemrosesan data dan penerapan algoritma pencarian',
+        bio: 'Bertanggung jawab dalam pengumpulan, pengolahan, dan analisis data ulasan film agar sistem dapat menampilkan hasil penelusuran yang akurat dan relevan. Berkemampuan dalam pemrosesan data dan penerapan algoritma.',
         image: '/images/tinsari.png',
         social: {
         github: 'https://github.com/hana',
@@ -42,7 +42,7 @@ const Team: React.FC = () => {
         name: 'Dian Islami',
         role: 'Frontend Developer & UI Designer',
         bio: 'Mengembangkan tampilan antarmuka SciFind menggunakan React dan Tailwind CSS. Bertanggung jawab atas desain, interaktivitas, serta pengalaman pengguna dalam menjelajahi dan menelusuri informasi film Sci-Fi.',
-        image: '/images/tinsari2.png',
+        image: '/images/dian.png',
         social: {
         github: 'https://github.com/dian',
         linkedin: 'https://linkedin.com/in/dian',
@@ -179,11 +179,11 @@ const Team: React.FC = () => {
                 key={currentMember.id}
                 className="absolute inset-0 flex items-start lg:items-center justify-center animate-[slideInFromLeft_0.8s_ease-out]"
               >
-                <div className="w-auto h-80 lg:h-150 p-1">
+                <div className="w-auto h-60 lg:h-150 p-1">
                   <img 
                     src={currentMember.image} 
                     alt={currentMember.name}
-                    className="w-full h-full object-cover object-top lg:object-center"
+                    className="py-4 lg:py-18 w-full h-full object-cover object-top lg:object-center"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
