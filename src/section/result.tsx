@@ -382,13 +382,13 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                         <div className="flex gap-3 mb-6">
                             <button
                                 onClick={() => setEvalMethod('tfidf')}
-                                className={`${evalMethod === 'tfidf' ? 'bg-gradient-to-r from-[#8f5bff]/40 to-[#4A9DE3]/40 text-white' : 'bg-black/40 text-white/80'} px-4 py-2 rounded-lg border border-white/40 transition`}
+                                className={`${evalMethod === 'tfidf' ? 'bg-gradient-to-r from-[#8f5bff]/40 to-[#4A9DE3]/40 text-white' : 'bg-black/40 text-white/80'} text-sm lg:text-base px-3 py-1 lg:px-4 lg:py-2 rounded-md lg:rounded-lg border border-white/40 transition hover:cursor-pointer`}
                             >
                                 TF-IDF
                             </button>
                             <button
                                 onClick={() => setEvalMethod('jaccard')}
-                                className={`${evalMethod === 'jaccard' ? 'bg-gradient-to-r from-[#8f5bff]/40 to-[#4A9DE3]/40 text-white' : 'bg-black/40 text-white/80'} px-4 py-2 rounded-lg border border-white/40 transition`}
+                                className={`${evalMethod === 'jaccard' ? 'bg-gradient-to-r from-[#8f5bff]/40 to-[#4A9DE3]/40 text-white' : 'bg-black/40 text-white/80'} text-sm lg:text-base px-3 py-1 lg:px-4 lg:py-2 rounded-md lg:rounded-lg border border-white/40 transition hover:cursor-pointer`}
                             >
                                 Jaccard
                             </button>
@@ -402,36 +402,36 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
 
                             return (
                                 <>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                    <div className="grid grid-cols-2 gap-6 mb-8">
                                         {/* Precision */}
                                         {currentEval.precision !== undefined && (
-                                            <div className="bg-black/50 backdrop-blur-md p-6 rounded-lg border border-[#4A9DE3]/50">
-                                                <h3 className="text-[#4A9DE3] text-lg font-semibold mb-2">Precision</h3>
-                                                <p className="text-white text-3xl font-bold">{currentEval.precision}</p>
+                                            <div className="bg-black/50 backdrop-blur-md p-3 lg:p-6 rounded-lg border border-[#4A9DE3]/50">
+                                                <h3 className="text-[#4A9DE3] text-sm lg:text-lg font-semibold lg:mb-2">Precision</h3>
+                                                <p className="text-white text-lg lg:text-3xl font-bold">{currentEval.precision}</p>
                                             </div>
                                         )}
 
                                         {/* Recall */}
                                         {currentEval.recall !== undefined && (
-                                            <div className="bg-black/50 backdrop-blur-md p-6 rounded-lg border border-[#8f5bff]/50">
-                                                <h3 className="text-[#8f5bff] text-lg font-semibold mb-2">Recall</h3>
-                                                <p className="text-white text-3xl font-bold">{currentEval.recall}</p>
+                                            <div className="bg-black/50 backdrop-blur-md p-3 lg:p-6 rounded-lg border border-[#8f5bff]/50">
+                                                <h3 className="text-[#8f5bff] text-sm lg:text-lg font-semibold lg:mb-2">Recall</h3>
+                                                <p className="text-white text-lg lg:text-3xl font-bold">{currentEval.recall}</p>
                                             </div>
                                         )}
 
                                         {/* F1 Score */}
                                         {currentEval.f1_score !== undefined && (
-                                            <div className="bg-black/50 backdrop-blur-md p-6 rounded-lg border border-[#4A9DE3]/50">
-                                                <h3 className="text-[#4A9DE3] text-lg font-semibold mb-2">F1 Score</h3>
-                                                <p className="text-white text-3xl font-bold">{currentEval.f1_score}</p>
+                                            <div className="bg-black/50 backdrop-blur-md p-3 lg:p-6 rounded-lg border border-[#4A9DE3]/50">
+                                                <h3 className="text-[#4A9DE3] text-sm lg:text-lg font-semibold lg:mb-2">F1 Score</h3>
+                                                <p className="text-white text-lg lg:text-3xl font-bold">{currentEval.f1_score}</p>
                                             </div>
                                         )}
 
                                         {/* Accuracy */}
                                         {currentEval.accuracy !== undefined && (
-                                            <div className="bg-black/50 backdrop-blur-md p-6 rounded-lg border border-[#8f5bff]/50">
-                                                <h3 className="text-[#8f5bff] text-lg font-semibold mb-2">Accuracy</h3>
-                                                <p className="text-white text-3xl font-bold">{currentEval.accuracy}%</p>
+                                            <div className="bg-black/50 backdrop-blur-md p-3 lg:p-6 rounded-lg border border-[#8f5bff]/50">
+                                                <h3 className="text-[#8f5bff] text-sm lg:text-lg font-semibold lg:mb-2">Accuracy</h3>
+                                                <p className="text-white text-lg lg:text-3xl font-bold">{currentEval.accuracy}%</p>
                                             </div>
                                         )}
                                     </div>
@@ -459,7 +459,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
             {hasSearched && evaluation && (
                 <button
                     onClick={openEvalModal}
-                    className="fixed bottom-8 right-8 z-[150] px-6 py-3 bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] border border-white/50 text-white rounded-full font-medium hover:cursor-pointer hover:brightness-105 hover:saturate-125 hover:scale-110 transition-all duration-300 shadow-lg"
+                    className="fixed bottom-8 right-8 z-[150] px-4 py-1 lg:px-6 lg:py-3 bg-gradient-to-r from-[#8f5bff] to-[#4A9DE3] border border-white/50 text-white rounded-full text-sm lg:text-lg font-medium hover:cursor-pointer hover:brightness-105 hover:saturate-125 hover:scale-110 transition-all duration-300 shadow-lg"
                     title="Lihat Hasil Evaluasi"
                 >
                     Evaluasi
