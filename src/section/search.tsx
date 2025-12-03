@@ -87,6 +87,7 @@ const Searching: React.FC = () => {
   const [searchMethod, setSearchMethod] = useState<'tfidf' | 'jaccard' | 'hybrid'>('hybrid');
   const [hasSearched, setHasSearched] = useState(false);
   const [correctionMessage, setCorrectionMessage] = useState<string | null>(null);
+  const [evaluation, setEvaluation] = useState<any>(null);
 
   useEffect(() => {
     const observerOptions = {
@@ -153,6 +154,11 @@ const Searching: React.FC = () => {
       
       const data = await response.json();
       setSearchResults(data.results || []);
+      
+      // Store evaluation data if available
+      if (data.evaluation) {
+        setEvaluation(data.evaluation);
+      }
       
       // Show correction message if query was auto-corrected
       if (data.corrected_query && data.corrected_query !== data.query) {
@@ -298,7 +304,7 @@ const Searching: React.FC = () => {
         </div>
       </div>
 
-      <ResultSection results={searchResults} isLoading={isLoading} searchMethod={searchMethod} hasSearched={hasSearched} />
+      <ResultSection results={searchResults} isLoading={isLoading} searchMethod={searchMethod} hasSearched={hasSearched} evaluation={evaluation} />
     </div>  
   );
 };
