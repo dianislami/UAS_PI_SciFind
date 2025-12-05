@@ -359,8 +359,21 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                             >
                                 Deskripsi
                             </h3>
-                            <div className="text-white/90 text-base lg:text-lg text-justify leading-relaxed">
-                                {parseMarkdownText(selectedMovie.description || selectedMovie.isi || selectedMovie.content || '')}
+                            <div className="text-white/90 text-base lg:text-lg text-justify leading-relaxed space-y-4">
+                                {(() => {
+                                    const description = selectedMovie.description || selectedMovie.isi || selectedMovie.content || '';
+                                    if (!description) return <p className="text-white/60 italic">Tidak ada deskripsi tersedia.</p>;
+                                    
+                                    // Split description by double newlines (paragraphs)
+                                    const paragraphs = description.split(/\n\n+/).filter((p: string) => p.trim().length > 0);
+                                    if (paragraphs.length === 0) return <p className="text-white/60 italic">Tidak ada deskripsi tersedia.</p>;
+                                    
+                                    return paragraphs.map((paragraph: string, index: number) => (
+                                        <p key={index} className="indent-8">
+                                            {parseMarkdownText(paragraph.trim())}
+                                        </p>
+                                    ));
+                                })()}
                             </div>
                         </div>
                     </div>
