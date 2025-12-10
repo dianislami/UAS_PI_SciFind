@@ -440,11 +440,11 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                                             </div>
                                         )}
 
-                                        {/* Accuracy */}
+                                        {/* Runtime */}
                                         {currentEval.accuracy !== undefined && (
                                             <div className="bg-black/50 backdrop-blur-md p-3 lg:p-6 rounded-lg border border-[#8f5bff]/50">
-                                                <h3 className="text-[#8f5bff] text-sm lg:text-lg font-semibold lg:mb-2">Accuracy</h3>
-                                                <p className="text-white text-lg lg:text-3xl font-bold">{currentEval.accuracy}%</p>
+                                                <h3 className="text-[#8f5bff] text-sm lg:text-lg font-semibold lg:mb-2">Runtime</h3>
+                                                <p className="text-white text-lg lg:text-3xl font-bold">{currentEval.accuracy} ms</p>
                                             </div>
                                         )}
                                     </div>
