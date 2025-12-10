@@ -188,7 +188,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                                             {item.jaccard_score !== undefined && (
                                                 <div className="bg-black/50 backdrop-blur-md px-3 py-0 lg:px-5 lg:py-2 rounded-lg border border-[#8f5bff]/50">
                                                     <span className="text-[#8f5bff] text-xs lg:text-base font-semibold">Jaccard: </span>
-                                                    <span className="text-white text-xs lg:text-base font-bold">{(item.jaccard_score * 100).toFixed(1)}%</span>
+                                                    <span className="text-white text-xs lg:text-base font-bold">{item.jaccard_score.toFixed(4)}</span>
                                                 </div>
                                             )}
                                             {item.score !== undefined && (
@@ -210,7 +210,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                                     {searchMethod === 'jaccard' && item.jaccard_score !== undefined && (
                                         <div className="bg-black/50 backdrop-blur-md px-3 py-1 lg:px-5 lg:py-2 rounded-lg border border-[#8f5bff]/50">
                                             <span className="text-[#8f5bff] text-xs lg:text-base font-semibold">Jaccard: </span>
-                                            <span className="text-white text-xs lg:text-base font-bold">{(item.jaccard_score * 100).toFixed(1)}%</span>
+                                            <span className="text-white text-xs lg:text-base font-bold">{item.jaccard_score.toFixed(4)}</span>
                                         </div>
                                     )}
                                 </div>
@@ -338,7 +338,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({ results = [], isLoading =
                                     {selectedMovie.jaccard_score !== undefined && (
                                         <div className="bg-black/50 backdrop-blur-md px-3 py-1 lg:px-5 lg:py-3 rounded-lg border border-[#8f5bff]/50">
                                             <span className="text-[#8f5bff] text-xs lg:text-base font-semibold">Jaccard: </span>
-                                            <span className="text-white text-xs lg:text-base font-bold">{(selectedMovie.jaccard_score * 100).toFixed(1)}%</span>
+                                            <span className="text-white text-xs lg:text-base font-bold">{selectedMovie.jaccard_score.toFixed(4)}</span>
                                         </div>
                                     )}
                                     {selectedMovie.score !== undefined && (
