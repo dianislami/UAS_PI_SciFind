@@ -25,45 +25,46 @@ const Team: React.FC = () => {
   
   const teamMembers: TeamMember[] = [
     {
-        id: 1,
-        name: 'Tinsari Rauhana',
-        role: 'Data Analyst & Research Engineer',
-        bio: 'Bertanggung jawab dalam pengumpulan, pengolahan, dan analisis data ulasan film agar sistem dapat menampilkan hasil penelusuran yang akurat dan relevan. Berkemampuan dalam pemrosesan data dan penerapan algoritma.',
-        image: '/images/tinsari.png',
-        social: {
-        github: 'https://github.com/hana',
-        linkedin: 'https://linkedin.com/in/hana',
-        email: 'hana@scifind.com',
-        },
-        skills: ['Python', 'Machine Learning', 'Data Analysis']
-    },
-    {
-        id: 2,
-        name: 'Dian Islami',
-        role: 'Frontend Developer & UI Designer',
-        bio: 'Mengembangkan tampilan antarmuka SciFind menggunakan React dan Tailwind CSS. Bertanggung jawab atas desain, interaktivitas, serta pengalaman pengguna dalam menjelajahi dan menelusuri informasi film Sci-Fi.',
-        image: '/images/dian.png',
-        social: {
-        github: 'https://github.com/dian',
-        linkedin: 'https://linkedin.com/in/dian',
-        email: 'dian@scifind.com'
-        },
-        skills: ['React', 'TypeScript', 'UI/UX Design']
-    },
-    {
-        id: 3,
-        name: 'Yuyun Nailufar',
-        role: 'Data Scientist & Academic Advisor',
-        bio: 'Memastikan validitas metodologi riset dan mengembangkan model analisis data untuk mendukung sistem penelusuran film. Berfokus pada penyusunan kerangka penelitian dan interpretasi hasil data Sci-Fi Movies Dataset.',
-        image: '/images/tinsari3.png',
-        social: {
+      id: 1,
+      name: 'Yuyun Nailufar',
+      role: 'Data Collection Engineer',
+      bio: 'Bertanggung jawab dalam pengumpulan korpus data melalui proses crawling dan scraping dari berbagai sumber ulasan film berbahasa Indonesia sebagai dasar sistem pencarian.',
+      image: '/images/yuyun.png',
+      social: {
         github: 'https://github.com/yuyun',
         linkedin: 'https://linkedin.com/in/yuyun',
         email: 'yuyun@scifind.com',
-        },
-        skills: ['Data Processing', 'Data Mining', 'Python']
+      },
+      skills: ['Web Scraping', 'Data Collection', 'Python']
+    },
+    {
+      id: 2,
+      name: 'Tinsari Rauhana',
+      role: 'Backend Engineer & Information Retrieval Analyst',
+      bio: 'Menangani preprocessing teks, pengindeksan, serta implementasi algoritma pencarian TF-IDF dan Jaccard Similarity beserta evaluasi performa sistem.',
+      image: '/images/tinsari.png',
+      social: {
+        github: 'https://github.com/hana',
+        linkedin: 'https://linkedin.com/in/hana',
+        email: 'hana@scifind.com',
+      },
+      skills: ['Information Retrieval', 'Text Processing', 'Python']
+    },
+    {
+      id: 3,
+      name: 'Dian Islami',
+      role: 'Frontend Developer & System Integrator',
+      bio: 'Mengembangkan antarmuka pengguna Sci-Find serta melakukan integrasi frontend dan backend agar sistem pencarian dapat berjalan secara optimal dan online.',
+      image: '/images/dian.png',
+      social: {
+        github: 'https://github.com/dian',
+        linkedin: 'https://linkedin.com/in/dian',
+        email: 'dian@scifind.com'
+      },
+      skills: ['React', 'Tailwind CSS', 'UI/UX Design']
     },
   ];
+
 
   // Auto-play functionality
   React.useEffect(() => {
